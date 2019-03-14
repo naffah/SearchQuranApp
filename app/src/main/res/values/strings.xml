@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SearchQuranApp</string>
+    <string name="title_activity_index_search">IndexSearchActivity</string>
+</resources>
