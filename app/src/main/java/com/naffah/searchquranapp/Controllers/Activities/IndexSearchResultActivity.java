@@ -18,6 +18,9 @@ public class IndexSearchResultActivity extends AppCompatActivity {
 
         Intent verse = getIntent();
 
-        verseText.setText((String) verse.getSerializableExtra("verse"));
+        String verseStr = (String) verse.getSerializableExtra("verse");
+
+        verseText.setText(verseStr);
+        verseText.append("o  ");
     }
 }
