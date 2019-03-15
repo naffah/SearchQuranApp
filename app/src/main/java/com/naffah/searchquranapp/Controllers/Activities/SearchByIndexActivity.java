@@ -1,5 +1,6 @@
 package com.naffah.searchquranapp.Controllers.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -124,7 +125,10 @@ public class SearchByIndexActivity extends AppCompatActivity {
                     return true;
                 }
                 else if (verses < verseNum) {
-                    Toast.makeText(getApplicationContext(), "Number of verses greater than " + verses + " verses.", Toast.LENGTH_LONG).show();
+                    Intent showVerseFound = new Intent(getApplicationContext(), IndexSearchResultActivity.class);
+                    showVerseFound.putExtra("verse", verseString);
+                    startActivity(showVerseFound);
+
                     return false;
                 }
             }
