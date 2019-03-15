@@ -51,7 +51,9 @@ public class SearchByIndexActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean check = validateVerse();
                 if (check) {
-                    Toast.makeText(getApplicationContext(), verseString, Toast.LENGTH_SHORT).show();
+                    Intent showVerseFound = new Intent(getApplicationContext(), IndexSearchResultActivity.class);
+                    showVerseFound.putExtra("verse", verseString);
+                    startActivity(showVerseFound);
                 }
                 else {
                     return;
@@ -125,10 +127,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
                     return true;
                 }
                 else if (verses < verseNum) {
-                    Intent showVerseFound = new Intent(getApplicationContext(), IndexSearchResultActivity.class);
-                    showVerseFound.putExtra("verse", verseString);
-                    startActivity(showVerseFound);
-
+                    Toast.makeText(getApplicationContext(), "Number of verses greater than " + verses + " verses.", Toast.LENGTH_LONG).show();
                     return false;
                 }
             }
