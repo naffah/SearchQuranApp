@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         suraList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent gotoSuraList = new Intent(getApplicationContext(), SuraListScrollable.class);
+                startActivity(gotoSuraList);
             }
         });
         Button searchByVerseBtn = (Button) findViewById(R.id.searchByVerseBtn);
