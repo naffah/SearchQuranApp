@@ -31,7 +31,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
     private List<SurahModel> suraList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
 
-    private String currentTag = null, verseString = null;
+    private String currentTag = null, verseString = null, translationString = null;
 
     private Spinner spinner;
     private Button searchBtn;
@@ -53,6 +53,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
                 if (check) {
                     Intent showVerseFound = new Intent(getApplicationContext(), IndexSearchResultActivity.class);
                     showVerseFound.putExtra("verse", verseString);
+                    showVerseFound.putExtra("translation", translationString);
                     startActivity(showVerseFound);
                 }
                 else {
@@ -136,16 +137,24 @@ public class SearchByIndexActivity extends AppCompatActivity {
     }
 
     private void searchVerseByNumber(String sura, int verseNum, int verses) {
-        XmlPullParserFactory suraParserFactory;
+        XmlPullParserFactory suraParserFactory, transParserFactory;
 
         try {
             suraParserFactory = XmlPullParserFactory.newInstance();
             suraParserFactory.setNamespaceAware(true);
             XmlPullParser suraParser = suraParserFactory.newPullParser();
+
+            transParserFactory = XmlPullParserFactory.newInstance();
+            transParserFactory.setNamespaceAware(true);
+            XmlPullParser transParser = transParserFactory.newPullParser();
+
             InputStream is = getAssets().open("database/quran-simple.xml");
+            InputStream trans = getAssets().open("database/english-translations/en.ahmedali.xml");
 
             suraParser.setInput(is, null);
+            transParser.setInput(trans, null);
 
+            //TODO:Make proper functions man. Seriously. This one for sura verse search.
             int eventType = suraParser.getEventType();
 
             String index = null;
@@ -182,6 +191,45 @@ public class SearchByIndexActivity extends AppCompatActivity {
                     break;
                 eventType = suraParser.next();
             }
+
+            //TODO:This one for translation verse search.
+            int eventType2 = transParser.getEventType();
+
+            index = null;
+            verseFound = false;
+
+            // Loop through the xml document
+            while (eventType2 != XmlPullParser.END_DOCUMENT) {
+                if (eventType2 == XmlPullParser.START_TAG) {
+                    if (!transParser.getName().equals(XML_ROOT_STRING_1) &&
+                            transParser.getName().equals(XML_ROOT_SEARCH_1)) {
+                        currentTag = transParser.getName();
+
+                        String suraName = transParser.getAttributeValue(null, "name");
+
+                        if (suraName.equals(sura)) {
+                            while (!verseFound) {
+                                currentTag = transParser.getName();
+                                eventType2 = transParser.nextTag();
+                                index = transParser.getAttributeValue(null, "index");
+                                if (Integer.parseInt(index) == verseNum) {
+                                    translationString = transParser.getAttributeValue(null, "text");
+                                    verseFound = true;
+                                }
+                                if (eventType2 == XmlPullParser.END_DOCUMENT)
+                                    break;
+                            }
+                        }
+                    }
+                }
+                else if(eventType2 == XmlPullParser.END_TAG) {
+                    currentTag = null;
+                }
+                if (eventType2 == XmlPullParser.END_DOCUMENT)
+                    break;
+                eventType2 = transParser.next();
+            }
+
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {

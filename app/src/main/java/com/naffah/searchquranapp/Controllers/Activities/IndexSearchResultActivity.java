@@ -15,6 +15,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_index_search_result);
 
         TextView verseText = (TextView) findViewById(R.id.verseTextView);
+        TextView transText = (TextView) findViewById(R.id.translationTextView);
 
         Intent verse = getIntent();
 
@@ -22,5 +23,8 @@ public class IndexSearchResultActivity extends AppCompatActivity {
 
         verseText.setText(verseStr);
         verseText.append("o  ");
+
+        String transStr = (String) verse.getSerializableExtra("translation");
+        transText.setText(transStr);
     }
 }
