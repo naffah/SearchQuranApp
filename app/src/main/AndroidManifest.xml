@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.Activities.SuraListScrollable"></activity>
+        <activity android:name=".Controllers.Activities.VersesList.VersesListActivity"></activity>
+        <activity android:name=".Controllers.Activities.SuraList.SuraListScrollable" />
         <activity android:name=".Controllers.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controllers.Activities.IndexSearchResultActivity" />
-        <activity android:name=".Controllers.Activities.SearchByIndexActivity" />
+        <activity android:name=".Controllers.Activities.IndexSearch.IndexSearchResultActivity" />
+        <activity android:name=".Controllers.Activities.IndexSearch.SearchByIndexActivity" />
     </application>
 
 </manifest>

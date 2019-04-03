@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#3CAEA3"
-    android:padding="3dp">
+    android:padding="1dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginRight="8dp"
             android:gravity="left"
             android:text="Al-Fatihah"
-            android:textColor="@android:color/black"
+            android:textColor="#3CAEA3"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.089"
@@ -43,7 +43,7 @@
             android:layout_marginRight="8dp"
             android:gravity="right"
             android:text="Arabic"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.854"

@@ -1,4 +1,4 @@
-package com.naffah.searchquranapp.Controllers.Activities;
+package com.naffah.searchquranapp.Controllers.Activities.IndexSearch;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

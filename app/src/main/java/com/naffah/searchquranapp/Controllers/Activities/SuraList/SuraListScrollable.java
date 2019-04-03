@@ -1,4 +1,4 @@
-package com.naffah.searchquranapp.Controllers.Activities;
+package com.naffah.searchquranapp.Controllers.Activities.SuraList;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +28,7 @@ public class SuraListScrollable extends AppCompatActivity {
 
     private ArrayList<String> suraNamesEn = new ArrayList<>();
     private ArrayList<String> suraNamesArabic = new ArrayList<>();
+    private ArrayList<Integer> suraAyasTotal = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class SuraListScrollable extends AppCompatActivity {
 
                         suraNamesArabic.add(suraParser.getAttributeValue(null, "name"));
                         suraNamesEn.add(suraParser.getAttributeValue(null, "tname"));
+                        suraAyasTotal.add(Integer.parseInt(suraParser.getAttributeValue(null, "ayas")));
                     }
                 }
                 else if(eventType == XmlPullParser.END_TAG) {
@@ -80,7 +82,7 @@ public class SuraListScrollable extends AppCompatActivity {
 
     private void initSuraRecyclerView() {
         RecyclerView rView = findViewById(R.id.suraListView);
-        SuraListAdapter adapter = new SuraListAdapter(getApplicationContext(), suraNamesEn, suraNamesArabic);
+        SuraListAdapter adapter = new SuraListAdapter(getApplicationContext(), suraNamesEn, suraNamesArabic, suraAyasTotal);
         rView.setAdapter(adapter);
         rView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controllers.Activities.SearchByIndexActivity"
+    tools:context=".Controllers.Activities.IndexSearch.SearchByIndexActivity"
     android:background="#3CAEA3">
 
     <Button
