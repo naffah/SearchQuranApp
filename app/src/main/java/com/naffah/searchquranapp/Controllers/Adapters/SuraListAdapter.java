@@ -48,12 +48,12 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
         viewHolder.suraLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, suraNamesEn.get(i) + " " + suraNamesArabic.get(i), Toast.LENGTH_SHORT).show();
-//                Intent gotoVersesList = new Intent(mContext, VersesListActivity.class);
-//                gotoVersesList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                gotoVersesList.putExtra("suraName", suraNamesArabic.get(i));
-//                gotoVersesList.putExtra("totalVerses", suraAyasTotal.get(i));
-//                mContext.startActivity(gotoVersesList);
+                //Toast.makeText(mContext, suraNamesEn.get(i) + " " + suraNamesArabic.get(i), Toast.LENGTH_SHORT).show();
+                Intent gotoVersesList = new Intent(mContext, VersesListActivity.class);
+                gotoVersesList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                gotoVersesList.putExtra("suraName", suraNamesArabic.get(i));
+                gotoVersesList.putExtra("totalVerses", suraAyasTotal.get(i));
+                mContext.startActivity(gotoVersesList);
             }
         });
     }

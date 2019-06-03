@@ -27,8 +27,6 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
         this.versesArabic = versesArabic;
         this.versesNum = versesNum;
         this.mContext = mContext;
-
-        setHasStableIds(true);
     }
 
     @NonNull

@@ -77,14 +77,16 @@ public class VersesListActivity extends AppCompatActivity {
                         String name = versesParser.getAttributeValue(null, "name");
 
                         if (suraName.equals(name)) {
-                            while (count != 0) {
+                            while (count > 0) {
                                 if (input.equals("database/quran-simple.xml")) {
                                     versesParser.nextTag();
                                     versesArabic.add(versesParser.getAttributeValue(null, "text"));
+                                    versesParser.nextTag();
                                 }
                                 else if (input.equals("database/english-translations/en.ahmedali.xml")) {
                                     versesParser.nextTag();
                                     versesEn.add(versesParser.getAttributeValue(null, "text"));
+                                    versesParser.nextTag();
                                 }
                                 if (versesArabic.size() <= versesCount)
                                 {
