@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.naffah.searchquranapp.Controllers.Activities.IndexSearch.SearchByIndexActivity;
 import com.naffah.searchquranapp.Controllers.Activities.SuraList.SuraListScrollable;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button suraList = (Button) findViewById(R.id.suraListBtn);
+        ImageButton suraList = (ImageButton) findViewById(R.id.suraListBtn);
         suraList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -25,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(gotoSuraList);
             }
         });
-        Button searchByVerseBtn = (Button) findViewById(R.id.searchByVerseBtn);
-        searchByVerseBtn.setOnClickListener(new View.OnClickListener() {
+
+        ImageButton searchBtn = (ImageButton) findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoSearchByVerse = new Intent(getApplicationContext(), SearchByIndexActivity.class);
+                Intent gotoSearchByVerse = new Intent(getApplicationContext(), SearchMainActivity.class);
                 startActivity(gotoSearchByVerse);
             }
         });

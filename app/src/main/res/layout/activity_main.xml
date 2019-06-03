@@ -4,12 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3CAEA3"
     tools:context=".Controllers.Activities.MainActivity">
 
-    <Button
+    <ImageButton
+        android:id="@+id/bookmarksBtn"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#3CAEA3"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toEndOf="@id/recitationBtn"
+        app:layout_constraintTop_toBottomOf="@+id/translationBtn"
+        app:layout_constraintVertical_bias="0.01"
+        app:srcCompat="@mipmap/six" />
+
+    <ImageButton
+        android:id="@+id/recitationBtn"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#3CAEA3"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bookmarksBtn"
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subjectsBtn"
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@mipmap/five" />
+
+    <ImageButton
+        android:id="@+id/translationBtn"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#3CAEA3"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/subjectsBtn"
+        app:layout_constraintTop_toBottomOf="@+id/searchBtn"
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@mipmap/four" />
+
+    <ImageButton
+        android:id="@+id/subjectsBtn"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#3CAEA3"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/translationBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/suraListBtn"
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@mipmap/three" />
+
+    <ImageButton
         android:id="@+id/suraListBtn"
-        android:layout_width="353dp"
-        android:layout_height="64dp"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -17,32 +88,34 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="#3CAEA3"
-        android:text="Sura List"
-        android:textColor="@android:color/background_light"
-        android:textSize="20dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/searchBtn"
+        app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.316" />
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@mipmap/one" />
 
-    <Button
-        android:id="@+id/searchByVerseBtn"
-        android:layout_width="353dp"
-        android:layout_height="64dp"
+    <ImageButton
+        android:id="@+id/searchBtn"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="#3CAEA3"
-        android:text="Search By Verse"
-        android:textColor="@android:color/background_light"
-        android:textSize="20dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/suraListBtn"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toEndOf="@id/suraListBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014"
+        app:srcCompat="@mipmap/two" />
+
+
 </android.support.constraint.ConstraintLayout>
