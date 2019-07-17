@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.naffah.searchquranapp.Controllers.Adapters.ArabicSearchResultAdaptor;
@@ -31,11 +32,13 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
 
     boolean found;
     String searchString = null;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arabic_search_result);
+        textView = (TextView) findViewById(R.id.notFound);
 
         ayaList = new ArrayList<>();
         transList = new ArrayList<>();
@@ -48,7 +51,7 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
         found = func(searchString);
 
         if(found){
-
+            textView.setVisibility(View.GONE);
             recyclerView = (RecyclerView) findViewById(R.id.arabic_search_result_recycler_view);
 
             // use this setting to improve performance if you know that changes
@@ -62,6 +65,9 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
             // specify an adapter (see also next example)
             mAdapter = new ArabicSearchResultAdaptor(ayaList, transList, suraIndex, ayaIndex);
             recyclerView.setAdapter(mAdapter);
+        }
+        else{
+            textView.setVisibility(View.VISIBLE);
         }
     }
 
