@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.naffah.searchquranapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -9,7 +12,7 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controllers.Activities.SearchMainActivity"></activity>
+        <activity android:name=".Controllers.Activities.SearchMainActivity" />
         <activity android:name=".Controllers.Activities.VersesList.VersesListActivity" />
         <activity android:name=".Controllers.Activities.SuraList.SuraListScrollable" />
         <activity android:name=".Controllers.Activities.MainActivity">
@@ -21,6 +24,9 @@
         </activity>
         <activity android:name=".Controllers.Activities.IndexSearch.IndexSearchResultActivity" />
         <activity android:name=".Controllers.Activities.IndexSearch.SearchByIndexActivity" />
+        <activity android:name=".Controllers.Activities.WordSearch.SearchByArabicWordActivity" />
+        <activity android:name=".Controllers.Activities.WordSearch.ArabicSearchResultActivity" />
+        <activity android:name=".Controllers.Activities.SpeechToText.SpeechToTextActivity"></activity>
     </application>
 
 </manifest>
