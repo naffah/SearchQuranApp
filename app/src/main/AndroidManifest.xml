@@ -3,7 +3,7 @@
     package="com.naffah.searchquranapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,8 @@
         <activity android:name=".Controllers.Activities.IndexSearch.SearchByIndexActivity" />
         <activity android:name=".Controllers.Activities.WordSearch.SearchByArabicWordActivity" />
         <activity android:name=".Controllers.Activities.WordSearch.ArabicSearchResultActivity" />
-        <activity android:name=".Controllers.Activities.SpeechToText.SpeechToTextActivity"></activity>
+        <activity android:name=".Controllers.Activities.SpeechToText.SpeechToTextActivity" />
+        <activity android:name=".Controllers.Activities.WordSearch.SearchByRootWordActivity"></activity>
     </application>
 
 </manifest>
