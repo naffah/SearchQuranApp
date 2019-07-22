@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import com.naffah.searchquranapp.Controllers.Activities.IndexSearch.SearchByIndexActivity;
 import com.naffah.searchquranapp.Controllers.Activities.SpeechToText.SpeechToTextActivity;
 import com.naffah.searchquranapp.Controllers.Activities.WordSearch.SearchByArabicWordActivity;
+import com.naffah.searchquranapp.Controllers.Activities.WordSearch.SearchByRootWordActivity;
 import com.naffah.searchquranapp.R;
 
 public class SearchMainActivity extends AppCompatActivity {
@@ -43,6 +44,15 @@ public class SearchMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotoSearchByVoice = new Intent(getApplicationContext(), SpeechToTextActivity.class);
                 startActivity(gotoSearchByVoice);
+            }
+        });
+
+        Button searchByRootWord = (Button) findViewById(R.id.searchByRootBtn);
+        searchByRootWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoSearchByRoot = new Intent(getApplicationContext(), SearchByRootWordActivity.class);
+                startActivity(gotoSearchByRoot);
             }
         });
     }
