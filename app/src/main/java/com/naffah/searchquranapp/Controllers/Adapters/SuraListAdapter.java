@@ -20,12 +20,14 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
 
     public static final String TAG = "SuraListAdapter";
 
+    private ArrayList<String> suraNum = new ArrayList<>();
     private ArrayList<String> suraNamesEn = new ArrayList<>();
     private ArrayList<String> suraNamesArabic = new ArrayList<>();
     private ArrayList<Integer> suraAyasTotal = new ArrayList<>();
     private Context mContext;
 
-    public SuraListAdapter(Context mContext, ArrayList<String> suraNamesEn, ArrayList<String> suraNamesArabic, ArrayList<Integer> suraAyasTotal) {
+    public SuraListAdapter(Context mContext, ArrayList<String> suraNum, ArrayList<String> suraNamesEn, ArrayList<String> suraNamesArabic, ArrayList<Integer> suraAyasTotal) {
+        this.suraNum = suraNum;
         this.suraNamesEn = suraNamesEn;
         this.suraNamesArabic = suraNamesArabic;
         this.suraAyasTotal = suraAyasTotal;
@@ -51,6 +53,7 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
                 //Toast.makeText(mContext, suraNamesEn.get(i) + " " + suraNamesArabic.get(i), Toast.LENGTH_SHORT).show();
                 Intent gotoVersesList = new Intent(mContext, VersesListActivity.class);
                 gotoVersesList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                gotoVersesList.putExtra("suraNum",suraNum.get(i));
                 gotoVersesList.putExtra("suraName", suraNamesArabic.get(i));
                 gotoVersesList.putExtra("totalVerses", suraAyasTotal.get(i));
                 mContext.startActivity(gotoVersesList);
