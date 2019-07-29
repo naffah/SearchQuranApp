@@ -29,7 +29,7 @@ public class VersesListActivity extends AppCompatActivity {
     private ArrayList<String> versesArabic = new ArrayList<>();
     private ArrayList<String> versesNum = new ArrayList<>();
 
-    private String suraName = null;
+    private String suraNum = null, suraName = null;
     private int versesCount = 0;
 
     @Override
@@ -38,6 +38,7 @@ public class VersesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verses_list);
 
         Intent suraListIntent = getIntent();
+        suraNum = (String) suraListIntent.getSerializableExtra("suraNum");
         suraName = (String) suraListIntent.getSerializableExtra("suraName");
         versesCount = (int) suraListIntent.getSerializableExtra("totalVerses");
 
@@ -113,7 +114,7 @@ public class VersesListActivity extends AppCompatActivity {
 
     private void initVersesRecyclerView() {
         RecyclerView rView = findViewById(R.id.verseListView);
-        VersesListAdapter adapter = new VersesListAdapter(this.getApplicationContext(), versesEn, versesArabic, versesNum);
+        VersesListAdapter adapter = new VersesListAdapter(this.getApplicationContext(), suraNum, versesEn, versesArabic, versesNum);
         rView.setAdapter(adapter);
         rView.setLayoutManager(new LinearLayoutManager(this));
     }
