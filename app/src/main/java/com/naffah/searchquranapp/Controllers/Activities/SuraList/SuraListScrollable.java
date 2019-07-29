@@ -26,6 +26,7 @@ public class SuraListScrollable extends AppCompatActivity {
 
     String currentTag = null;
 
+    private ArrayList<String> suraNum = new ArrayList<>();
     private ArrayList<String> suraNamesEn = new ArrayList<>();
     private ArrayList<String> suraNamesArabic = new ArrayList<>();
     private ArrayList<Integer> suraAyasTotal = new ArrayList<>();
@@ -59,6 +60,7 @@ public class SuraListScrollable extends AppCompatActivity {
                             suraParser.getName().equals(XML_ROOT_SEARCH_1)) {
                         currentTag = suraParser.getName();
 
+                        suraNum.add(suraParser.getAttributeValue(null,"index"));
                         suraNamesArabic.add(suraParser.getAttributeValue(null, "name"));
                         suraNamesEn.add(suraParser.getAttributeValue(null, "tname"));
                         suraAyasTotal.add(Integer.parseInt(suraParser.getAttributeValue(null, "ayas")));
@@ -82,7 +84,7 @@ public class SuraListScrollable extends AppCompatActivity {
 
     private void initSuraRecyclerView() {
         RecyclerView rView = findViewById(R.id.suraListView);
-        SuraListAdapter adapter = new SuraListAdapter(getApplicationContext(), suraNamesEn, suraNamesArabic, suraAyasTotal);
+        SuraListAdapter adapter = new SuraListAdapter(getApplicationContext(), suraNum, suraNamesEn, suraNamesArabic, suraAyasTotal);
         rView.setAdapter(adapter);
         rView.setLayoutManager(new LinearLayoutManager(this));
     }
