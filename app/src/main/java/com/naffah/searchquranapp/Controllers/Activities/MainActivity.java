@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.naffah.searchquranapp.Controllers.Activities.Bookmarks.BookmarksListActivity;
 import com.naffah.searchquranapp.Controllers.Activities.IndexSearch.SearchByIndexActivity;
 import com.naffah.searchquranapp.Controllers.Activities.SuraList.SuraListScrollable;
 import com.naffah.searchquranapp.R;
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotoSearchByVerse = new Intent(getApplicationContext(), SearchMainActivity.class);
                 startActivity(gotoSearchByVerse);
+            }
+        });
+
+        ImageButton bookmarksBtn = (ImageButton) findViewById(R.id.bookmarksBtn);
+        bookmarksBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoBookmarksList = new Intent(getApplicationContext(), BookmarksListActivity.class);
+                startActivity(gotoBookmarksList);
             }
         });
     }
