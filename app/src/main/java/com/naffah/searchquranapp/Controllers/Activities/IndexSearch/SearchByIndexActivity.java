@@ -36,6 +36,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
     private Spinner spinner;
     private Button searchBtn;
     private EditText verseNo;
+    private String suraNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class SearchByIndexActivity extends AppCompatActivity {
                     Intent showVerseFound = new Intent(getApplicationContext(), IndexSearchResultActivity.class);
                     showVerseFound.putExtra("verse", verseString);
                     showVerseFound.putExtra("translation", translationString);
+                    showVerseFound.putExtra("verseNo", verseNo.getText().toString());
+                    showVerseFound.putExtra("suraNo", suraNo);
                     startActivity(showVerseFound);
                 }
                 else {
@@ -125,6 +128,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
                 int verses = Integer.parseInt(sura.getVerses());
                 if (verses >= verseNum) {
                     searchVerseByNumber(sura.getSura(), verseNum, verses);
+                    suraNo = sura.getIndex();
                     return true;
                 }
                 else if (verses < verseNum) {
