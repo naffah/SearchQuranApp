@@ -27,7 +27,8 @@
         <activity android:name=".Controllers.Activities.WordSearch.SearchByArabicWordActivity" />
         <activity android:name=".Controllers.Activities.WordSearch.ArabicSearchResultActivity" />
         <activity android:name=".Controllers.Activities.SpeechToText.SpeechToTextActivity" />
-        <activity android:name=".Controllers.Activities.WordSearch.SearchByRootWordActivity"></activity>
+        <activity android:name=".Controllers.Activities.WordSearch.SearchByRootWordActivity" />
+        <activity android:name=".Controllers.Activities.Bookmarks.BookmarksListActivity"></activity>
     </application>
 
 </manifest>
