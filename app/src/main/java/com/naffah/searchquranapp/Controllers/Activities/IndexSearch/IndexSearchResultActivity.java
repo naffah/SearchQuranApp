@@ -20,7 +20,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "bookmarks_db";
     private BookmarksDatabase bookmarksDatabase;
     private List<Bookmarks> alreadyBookmarked;
-    private ImageButton bookmarkBtn;
+    private ImageButton bookmarkBtn, bookmarkedBtn;
     private String index;
 
     @Override
@@ -32,8 +32,11 @@ public class IndexSearchResultActivity extends AppCompatActivity {
         TextView verseText = (TextView) findViewById(R.id.verseTextView);
         TextView transText = (TextView) findViewById(R.id.translationTextView);
         bookmarkBtn = (ImageButton) findViewById(R.id.bookmarkVerseBtn);
+        bookmarkedBtn = (ImageButton) findViewById(R.id.bookmarkedBtn);
 
         bookmarksDatabase = Room.databaseBuilder(getApplicationContext(), BookmarksDatabase.class, DATABASE_NAME).build();
+
+        bookmarkedBtn.setVisibility(View.GONE);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -41,7 +44,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
 
                 for(int j = 0; j < alreadyBookmarked.size(); j++){
                     if(index.equals(alreadyBookmarked.get(j).getVerseIndex())){
-                        bookmarkBtn.setVisibility(View.GONE);
+                        bookmarkedBtn.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -75,7 +78,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
                         bookmarksDatabase.daoAccess ().insertSingleBookmark (bookmark);
                     }
                 }).start();
-                bookmarkBtn.setVisibility(View.GONE);
+                bookmarkedBtn.setVisibility(View.VISIBLE);
             }
         });
     }
