@@ -61,9 +61,10 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
         final String Index = suraIndex.get(i) + ":" + ayaIndex.get(i);
         myViewHolder.index.setText(Index);
 
+        myViewHolder.bookmarkedBtn.setVisibility(View.GONE);
         for(int j = 0; j < alreadyBookmarked.size(); j++){
             if(Index.equals(alreadyBookmarked.get(j).getVerseIndex())){
-                myViewHolder.bookmarkBtn.setVisibility(View.GONE);
+                myViewHolder.bookmarkedBtn.setVisibility(View.VISIBLE);
             }
         }
 
@@ -81,7 +82,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
                         bookmarksDatabase.daoAccess ().insertSingleBookmark (bookmark);
                     }
                 }).start();
-                myViewHolder.bookmarkBtn.setVisibility(View.GONE);
+                myViewHolder.bookmarkedBtn.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -94,7 +95,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView arabicText, engText, index;
-        private ImageButton bookmarkBtn;
+        private ImageButton bookmarkBtn, bookmarkedBtn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +103,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
             engText = itemView.findViewById(R.id.ayaTextEn);
             index = itemView.findViewById(R.id.index);
             bookmarkBtn = itemView.findViewById(R.id.bookmarkVerseBtn);
+            bookmarkedBtn = itemView.findViewById(R.id.bookmarkedBtn);
         }
     }
 }
