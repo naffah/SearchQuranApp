@@ -1,10 +1,12 @@
 package com.naffah.searchquranapp.Controllers.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     private static final String DATABASE_NAME = "bookmarks_db";
     private BookmarksDatabase bookmarksDatabase;
     private List<Bookmarks> alreadyBookmarked;
+    Context context;
 
     public ArabicSearchResultAdaptor(Context context,ArrayList<String> ayaList, ArrayList<String> transList,
                                      ArrayList<String> suraIndex, ArrayList<String> ayaIndex){
@@ -43,6 +46,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
         this.transList = transList;
         this.suraIndex = suraIndex;
         this.ayaIndex = ayaIndex;
+        this.context = context;
 
         bookmarksDatabase = Room.databaseBuilder(context, BookmarksDatabase.class, DATABASE_NAME).build();
         new Thread(new Runnable() {
@@ -67,6 +71,13 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
+        SharedPreferences pref = context.getSharedPreferences("MyPref", 0);
+        String check = pref.getString("translation",null);
+        if(check != null && check.contains("ur.")){
+            myViewHolder.engText.setGravity(Gravity.RIGHT);
+            myViewHolder.engText.setTextSize(20);
+        }
+
         myViewHolder.arabicText.setText(ayaList.get(i));
         myViewHolder.engText.setText(transList.get(i));
 
@@ -98,6 +109,23 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
             }
         });
 
+        myViewHolder.bookmarkedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        for(int j = 0; j < bookmarksList.size(); j++) {
+                            if(Index.equals(bookmarksList.get(j).getVerseIndex())) {
+                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
+                            }
+                        }
+                    }
+                }).start();
+                myViewHolder.bookmarkedBtn.setVisibility(View.GONE);
+            }
+        });
 
         myViewHolder.playBtn.setOnClickListener(new View.OnClickListener() {
             @Override

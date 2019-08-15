@@ -1,11 +1,13 @@
 package com.naffah.searchquranapp.Controllers.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +72,13 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull final VersesListAdapter.ViewHolder viewHolder, final int i) {
+        SharedPreferences pref = mContext.getSharedPreferences("MyPref", 0);
+        String check = pref.getString("translation",null);
+        if(check != null && check.contains("ur.")){
+            viewHolder.versesEn.setGravity(Gravity.RIGHT);
+            viewHolder.versesEn.setTextSize(20);
+        }
+
         viewHolder.versesEn.setText(versesEn.get(i));
         viewHolder.versesArabic.setText(versesArabic.get(i));
         viewHolder.versesNum.setText(versesNum.get(i));
@@ -98,6 +107,24 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
                     }
                 }).start();
                 viewHolder.bookmarkedBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
+        viewHolder.bookmarkedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        for(int j = 0; j < bookmarksList.size(); j++) {
+                            if(Index.equals(bookmarksList.get(j).getVerseIndex())) {
+                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
+                            }
+                        }
+                    }
+                }).start();
+                viewHolder.bookmarkedBtn.setVisibility(View.GONE);
             }
         });
 
