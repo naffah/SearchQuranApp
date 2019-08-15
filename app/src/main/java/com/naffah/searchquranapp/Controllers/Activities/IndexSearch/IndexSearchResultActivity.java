@@ -1,10 +1,12 @@
 package com.naffah.searchquranapp.Controllers.Activities.IndexSearch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -42,6 +44,13 @@ public class IndexSearchResultActivity extends AppCompatActivity {
         bookmarkBtn = (ImageButton) findViewById(R.id.bookmarkVerseBtn);
         bookmarkedBtn = (ImageButton) findViewById(R.id.bookmarkedBtn);
         playBtn = (ImageButton) findViewById(R.id.playBtn);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String check = pref.getString("translation",null);
+        if(check != null && check.contains("ur.")){
+            transText.setGravity(Gravity.RIGHT);
+            transText.setTextSize(20);
+        }
 
         bookmarksDatabase = Room.databaseBuilder(getApplicationContext(), BookmarksDatabase.class, DATABASE_NAME).build();
 
@@ -88,6 +97,24 @@ public class IndexSearchResultActivity extends AppCompatActivity {
                     }
                 }).start();
                 bookmarkedBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
+        bookmarkedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        for(int i = 0; i < bookmarksList.size(); i++) {
+                            if(index.equals(bookmarksList.get(i).getVerseIndex())) {
+                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(i));
+                            }
+                        }
+                    }
+                }).start();
+                bookmarkedBtn.setVisibility(View.GONE);
             }
         });
 

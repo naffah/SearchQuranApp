@@ -1,6 +1,7 @@
 package com.naffah.searchquranapp.Controllers.Activities.IndexSearch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -141,6 +142,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
     }
 
     private void searchVerseByNumber(String sura, int verseNum, int verses) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         XmlPullParserFactory suraParserFactory, transParserFactory;
 
         try {
@@ -153,7 +155,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
             XmlPullParser transParser = transParserFactory.newPullParser();
 
             InputStream is = getAssets().open("database/quran-simple.xml");
-            InputStream trans = getAssets().open("database/english-translations/en.ahmedali.xml");
+            InputStream trans = getAssets().open(pref.getString("translation","database/english-translations/en.ahmedali.xml"));
 
             suraParser.setInput(is, null);
             transParser.setInput(trans, null);
