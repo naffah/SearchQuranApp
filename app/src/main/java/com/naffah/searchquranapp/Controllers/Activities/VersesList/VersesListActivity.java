@@ -1,6 +1,7 @@
 package com.naffah.searchquranapp.Controllers.Activities.VersesList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,11 +32,16 @@ public class VersesListActivity extends AppCompatActivity {
 
     private String suraNum = null, suraName = null;
     private int versesCount = 0;
+    SharedPreferences pref;
+    String englishInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verses_list);
+
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
 
         Intent suraListIntent = getIntent();
         suraNum = (String) suraListIntent.getSerializableExtra("suraNum");
@@ -48,7 +54,7 @@ public class VersesListActivity extends AppCompatActivity {
 
         String arabicInput = "database/quran-simple.xml";
         initVerses(arabicInput);
-        String englishInput = "database/english-translations/en.ahmedali.xml";
+        englishInput = pref.getString("translation", "database/english-translations/en.ahmedali.xml");
         initVerses(englishInput);
         initVersesRecyclerView();
     }
@@ -84,7 +90,7 @@ public class VersesListActivity extends AppCompatActivity {
                                     versesArabic.add(versesParser.getAttributeValue(null, "text"));
                                     versesParser.nextTag();
                                 }
-                                else if (input.equals("database/english-translations/en.ahmedali.xml")) {
+                                else if (input.equals(englishInput)) {
                                     versesParser.nextTag();
                                     versesEn.add(versesParser.getAttributeValue(null, "text"));
                                     versesParser.nextTag();
