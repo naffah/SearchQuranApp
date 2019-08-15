@@ -1,6 +1,7 @@
 package com.naffah.searchquranapp.Controllers.Activities.WordSearch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +34,15 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
     boolean found;
     String searchString = null;
     TextView textView;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arabic_search_result);
         textView = (TextView) findViewById(R.id.notFound);
+
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
 
         ayaList = new ArrayList<>();
         transList = new ArrayList<>();
@@ -85,7 +89,8 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
             myparser.setInput(in_s, null);
             InputStream in_s2 = getApplicationContext().getAssets().open("database/quran-simple.xml");
             myparser2.setInput(in_s2, null);
-            InputStream in_s3 = getApplicationContext().getAssets().open("database/english-translations/en.ahmedali.xml");
+            InputStream in_s3 = getApplicationContext().getAssets().open
+                    (pref.getString("translation", "database/english-translations/en.ahmedali.xml"));
             myparser3.setInput(in_s3, null);
 
             String aya;
