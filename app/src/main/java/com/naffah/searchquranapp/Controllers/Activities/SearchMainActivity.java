@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.naffah.searchquranapp.Controllers.Activities.IndexSearch.SearchByIndexActivity;
 import com.naffah.searchquranapp.Controllers.Activities.SpeechToText.SpeechToTextActivity;
 import com.naffah.searchquranapp.Controllers.Activities.WordSearch.SearchByArabicWordActivity;
+import com.naffah.searchquranapp.Controllers.Activities.WordSearch.SearchByEnglishWordActivity;
 import com.naffah.searchquranapp.Controllers.Activities.WordSearch.SearchByRootWordActivity;
 import com.naffah.searchquranapp.R;
 
@@ -53,6 +53,15 @@ public class SearchMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gotoSearchByRoot = new Intent(getApplicationContext(), SearchByRootWordActivity.class);
                 startActivity(gotoSearchByRoot);
+            }
+        });
+
+        Button searchByEnglishWord = (Button) findViewById(R.id.searchByEnglishBtn);
+        searchByEnglishWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoSearchByEnglish = new Intent(getApplicationContext(), SearchByEnglishWordActivity.class);
+                startActivity(gotoSearchByEnglish);
             }
         });
     }
