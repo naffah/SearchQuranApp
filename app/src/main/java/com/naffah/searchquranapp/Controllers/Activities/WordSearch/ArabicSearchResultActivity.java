@@ -69,6 +69,7 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
             // specify an adapter (see also next example)
             mAdapter = new ArabicSearchResultAdaptor(getApplicationContext(), ayaList, transList, suraIndex, ayaIndex);
             recyclerView.setAdapter(mAdapter);
+            setTitle("Search Results: " + mAdapter.getItemCount());
         }
         else{
             textView.setVisibility(View.VISIBLE);
