@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Controllers.Activities.WordSearch.RootSearchResultActivity"></activity>
+        <activity android:name=".Controllers.Activities.WordSearch.EnglishSearchResultActivity" />
+        <activity android:name=".Controllers.Activities.WordSearch.SearchByEnglishWordActivity" />
         <activity android:name=".Controllers.Activities.SearchMainActivity" />
         <activity android:name=".Controllers.Activities.VersesList.VersesListActivity" />
         <activity android:name=".Controllers.Activities.SuraList.SuraListScrollable" />
@@ -28,7 +31,7 @@
         <activity android:name=".Controllers.Activities.WordSearch.ArabicSearchResultActivity" />
         <activity android:name=".Controllers.Activities.SpeechToText.SpeechToTextActivity" />
         <activity android:name=".Controllers.Activities.WordSearch.SearchByRootWordActivity" />
-        <activity android:name=".Controllers.Activities.Bookmarks.BookmarksListActivity"></activity>
+        <activity android:name=".Controllers.Activities.Bookmarks.BookmarksListActivity" />
     </application>
 
 </manifest>
