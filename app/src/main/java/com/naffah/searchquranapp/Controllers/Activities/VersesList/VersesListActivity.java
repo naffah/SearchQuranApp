@@ -25,12 +25,13 @@ public class VersesListActivity extends AppCompatActivity {
     public static final String XML_ROOT_SEARCH_1 = "sura";
 
     String currentTag = null;
+    int layoutPosition;
 
     private ArrayList<String> versesEn = new ArrayList<>();
     private ArrayList<String> versesArabic = new ArrayList<>();
     private ArrayList<String> versesNum = new ArrayList<>();
 
-    private String suraNum = null, suraName = null;
+    private String suraNum = null, suraName = null, suraNameEn = null;
     private int versesCount = 0;
     SharedPreferences pref;
     String englishInput;
@@ -46,7 +47,9 @@ public class VersesListActivity extends AppCompatActivity {
         Intent suraListIntent = getIntent();
         suraNum = (String) suraListIntent.getSerializableExtra("suraNum");
         suraName = (String) suraListIntent.getSerializableExtra("suraName");
+        suraNameEn = (String) suraListIntent.getSerializableExtra("suraNameEn");
         versesCount = (int) suraListIntent.getSerializableExtra("totalVerses");
+        layoutPosition = (int) suraListIntent.getSerializableExtra("layoutPosition");
 
         versesEn.clear();
         versesArabic.clear();
@@ -57,6 +60,7 @@ public class VersesListActivity extends AppCompatActivity {
         englishInput = pref.getString("translation", "database/english-translations/en.ahmedali.xml");
         initVerses(englishInput);
         initVersesRecyclerView();
+        setTitle("Sura " + suraNameEn);
     }
 
     private void initVerses(String input) {
@@ -123,5 +127,6 @@ public class VersesListActivity extends AppCompatActivity {
         VersesListAdapter adapter = new VersesListAdapter(this.getApplicationContext(), suraNum, versesEn, versesArabic, versesNum);
         rView.setAdapter(adapter);
         rView.setLayoutManager(new LinearLayoutManager(this));
+        rView.scrollToPosition(layoutPosition);
     }
 }
