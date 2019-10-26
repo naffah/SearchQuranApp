@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.naffah.searchquranapp.Models.Bookmarks;
-import com.naffah.searchquranapp.Models.BookmarksDatabase;
+import com.naffah.searchquranapp.Models.ProjectDatabase;
 import com.naffah.searchquranapp.R;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     ArrayList<String> ayaIndex;
 
     private static final String DATABASE_NAME = "bookmarks_db";
-    private BookmarksDatabase bookmarksDatabase;
+    private ProjectDatabase projectDatabase;
     private List<Bookmarks> alreadyBookmarked;
     Context context;
 
@@ -48,11 +48,11 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
         this.ayaIndex = ayaIndex;
         this.context = context;
 
-        bookmarksDatabase = Room.databaseBuilder(context, BookmarksDatabase.class, DATABASE_NAME).build();
+        projectDatabase = Room.databaseBuilder(context, ProjectDatabase.class, DATABASE_NAME).build();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                alreadyBookmarked = bookmarksDatabase.daoAccess().fetchBookmarks();
+                alreadyBookmarked = projectDatabase.daoAccess().fetchBookmarks();
             }
         }).start();
     }
@@ -102,7 +102,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
                         bookmark.setVerseIndex(Index);
                         bookmark.setVerseArabic(ayaList.get(i));
                         bookmark.setVerseEnglish(transList.get(i));
-                        bookmarksDatabase.daoAccess ().insertSingleBookmark (bookmark);
+                        projectDatabase.daoAccess ().insertSingleBookmark (bookmark);
                     }
                 }).start();
                 myViewHolder.bookmarkedBtn.setVisibility(View.VISIBLE);
@@ -115,10 +115,10 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        List<Bookmarks> bookmarksList = projectDatabase.daoAccess().fetchBookmarks();
                         for(int j = 0; j < bookmarksList.size(); j++) {
                             if(Index.equals(bookmarksList.get(j).getVerseIndex())) {
-                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
+                                projectDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
                             }
                         }
                     }
@@ -143,6 +143,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
                             }
                         });
                         isPlaying = true;
+                        myViewHolder.stopBtn.setVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -156,6 +157,15 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
                 mp.reset();
             }
         });
+
+        myViewHolder.stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isPlaying = false;
+                mediaPlayer.reset();
+                myViewHolder.stopBtn.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -166,7 +176,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView arabicText, engText, index;
-        private ImageButton bookmarkBtn, bookmarkedBtn, playBtn;
+        private ImageButton bookmarkBtn, bookmarkedBtn, playBtn, stopBtn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -176,6 +186,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
             bookmarkBtn = itemView.findViewById(R.id.bookmarkVerseBtn);
             bookmarkedBtn = itemView.findViewById(R.id.bookmarkedBtn);
             playBtn = itemView.findViewById(R.id.playBtn);
+            stopBtn = itemView.findViewById(R.id.stopBtn);
         }
     }
 
@@ -205,5 +216,3 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
         }
     }
 }
-
-
