@@ -7,6 +7,23 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/searchByVoiceBtn"
+        android:layout_width="332dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#3CAEA3"
+        android:text="Search By Voice"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/searchByVerseBtn"
         android:layout_width="332dp"
         android:layout_height="62dp"
@@ -15,28 +32,25 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="#3CAEA3"
         android:text="Search By Verse No."
         android:textColor="@android:color/background_light"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintTop_toBottomOf="@+id/searchByVoiceBtn" />
 
     <Button
-        android:id="@+id/searchByArabicBtn"
+        android:id="@+id/searchByRootBtn"
         android:layout_width="332dp"
         android:layout_height="62dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="#3CAEA3"
-        android:text="Search By Arabic Word"
+        android:text="Search By Root Word"
         android:textColor="@android:color/background_light"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,37 +58,38 @@
         app:layout_constraintTop_toBottomOf="@+id/searchByVerseBtn" />
 
     <Button
-        android:id="@+id/searchByVoiceBtn"
+        android:id="@+id/searchByArabicBtn"
         android:layout_width="332dp"
         android:layout_height="62dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="#3CAEA3"
-        android:text="Search By Voice"
+        android:text="Search By Arabic Word"
+        android:textColor="@android:color/background_light"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchByRootBtn" />
+
+    <Button
+        android:id="@+id/searchByEnglishBtn"
+        android:layout_width="332dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#3CAEA3"
+        android:text="Search By English Word"
         android:textColor="@android:color/background_light"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchByArabicBtn" />
-
-    <Button
-        android:id="@+id/searchByRootBtn"
-        android:layout_width="332dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:background="#3CAEA3"
-        android:text="Search By Root Word"
-        android:textColor="@android:color/background_light"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchByVoiceBtn" />
 
 </android.support.constraint.ConstraintLayout>
