@@ -13,10 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.naffah.searchquranapp.Models.Bookmarks;
-import com.naffah.searchquranapp.Models.BookmarksDatabase;
+import com.naffah.searchquranapp.Models.ProjectDatabase;
 import com.naffah.searchquranapp.R;
 
 import java.io.IOException;
@@ -33,7 +32,7 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
     private MediaPlayer mediaPlayer;
 
     private static final String DATABASE_NAME = "bookmarks_db";
-    private BookmarksDatabase bookmarksDatabase;
+    private ProjectDatabase projectDatabase;
     private List<Bookmarks> alreadyBookmarked;
 
     private String suraNum = null;
@@ -49,11 +48,11 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
         this.versesNum = versesNum;
         this.mContext = mContext;
 
-        bookmarksDatabase = Room.databaseBuilder(mContext, BookmarksDatabase.class, DATABASE_NAME).build();
+        projectDatabase = Room.databaseBuilder(mContext, ProjectDatabase.class, DATABASE_NAME).build();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                alreadyBookmarked = bookmarksDatabase.daoAccess().fetchBookmarks();
+                alreadyBookmarked = projectDatabase.daoAccess().fetchBookmarks();
             }
         }).start();
     }
@@ -103,7 +102,7 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
                         bookmark.setVerseIndex(Index);
                         bookmark.setVerseArabic(versesArabic.get(i));
                         bookmark.setVerseEnglish(versesEn.get(i));
-                        bookmarksDatabase.daoAccess ().insertSingleBookmark (bookmark);
+                        projectDatabase.daoAccess ().insertSingleBookmark (bookmark);
                     }
                 }).start();
                 viewHolder.bookmarkedBtn.setVisibility(View.VISIBLE);
@@ -116,10 +115,10 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        List<Bookmarks> bookmarksList = projectDatabase.daoAccess().fetchBookmarks();
                         for(int j = 0; j < bookmarksList.size(); j++) {
                             if(Index.equals(bookmarksList.get(j).getVerseIndex())) {
-                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
+                                projectDatabase.daoAccess().deleteBookmark(bookmarksList.get(j));
                             }
                         }
                     }
@@ -144,6 +143,7 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
                             }
                         });
                         isPlaying = true;
+                        viewHolder.stopBtn.setVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -157,6 +157,15 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
                 mp.reset();
             }
         });
+
+        viewHolder.stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isPlaying = false;
+                mediaPlayer.reset();
+                viewHolder.stopBtn.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -167,7 +176,7 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView versesEn, versesArabic, versesNum;
-        private ImageButton bookmarkBtn, bookmarkedBtn, playBtn;
+        private ImageButton bookmarkBtn, bookmarkedBtn, playBtn, stopBtn;
         private ConstraintLayout versesLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -178,6 +187,7 @@ public class VersesListAdapter extends RecyclerView.Adapter<VersesListAdapter.Vi
             bookmarkBtn = itemView.findViewById(R.id.bookmarkVerseBtn);
             bookmarkedBtn = itemView.findViewById(R.id.bookmarkedBtn);
             playBtn = itemView.findViewById(R.id.playBtn);
+            stopBtn = itemView.findViewById(R.id.stopBtn);
             versesLayout = itemView.findViewById(R.id.verseItemLayout);
         }
     }
