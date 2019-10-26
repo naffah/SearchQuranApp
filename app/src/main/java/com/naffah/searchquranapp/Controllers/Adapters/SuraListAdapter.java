@@ -44,7 +44,7 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.suraItemEn.setText(suraNamesEn.get(i));
+        viewHolder.suraItemEn.setText(suraNum.get(i) + "." + suraNamesEn.get(i));
         viewHolder.suraItemArabic.setText(suraNamesArabic.get(i));
 
         viewHolder.suraLayout.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,9 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
                 gotoVersesList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 gotoVersesList.putExtra("suraNum",suraNum.get(i));
                 gotoVersesList.putExtra("suraName", suraNamesArabic.get(i));
+                gotoVersesList.putExtra("suraNameEn", suraNamesEn.get(i));
                 gotoVersesList.putExtra("totalVerses", suraAyasTotal.get(i));
+                gotoVersesList.putExtra("layoutPosition", 0);
                 mContext.startActivity(gotoVersesList);
             }
         });
