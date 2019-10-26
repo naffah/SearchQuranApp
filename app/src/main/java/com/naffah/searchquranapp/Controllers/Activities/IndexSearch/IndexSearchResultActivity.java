@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.naffah.searchquranapp.Models.Bookmarks;
-import com.naffah.searchquranapp.Models.BookmarksDatabase;
+import com.naffah.searchquranapp.Models.ProjectDatabase;
 import com.naffah.searchquranapp.R;
 
 import java.io.IOException;
@@ -27,9 +27,9 @@ public class IndexSearchResultActivity extends AppCompatActivity {
     boolean isPlaying = false;
 
     private static final String DATABASE_NAME = "bookmarks_db";
-    private BookmarksDatabase bookmarksDatabase;
+    private ProjectDatabase projectDatabase;
     private List<Bookmarks> alreadyBookmarked;
-    private ImageButton bookmarkBtn, bookmarkedBtn, playBtn;
+    private ImageButton bookmarkBtn, bookmarkedBtn, playBtn, stopBtn;
     private MediaPlayer mediaPlayer;
     private String index;
 
@@ -44,6 +44,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
         bookmarkBtn = (ImageButton) findViewById(R.id.bookmarkVerseBtn);
         bookmarkedBtn = (ImageButton) findViewById(R.id.bookmarkedBtn);
         playBtn = (ImageButton) findViewById(R.id.playBtn);
+        stopBtn = (ImageButton) findViewById(R.id.stopBtn);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         String check = pref.getString("translation",null);
@@ -52,13 +53,13 @@ public class IndexSearchResultActivity extends AppCompatActivity {
             transText.setTextSize(20);
         }
 
-        bookmarksDatabase = Room.databaseBuilder(getApplicationContext(), BookmarksDatabase.class, DATABASE_NAME).build();
+        projectDatabase = Room.databaseBuilder(getApplicationContext(), ProjectDatabase.class, DATABASE_NAME).build();
 
         bookmarkedBtn.setVisibility(View.GONE);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                alreadyBookmarked = bookmarksDatabase.daoAccess().fetchBookmarks();
+                alreadyBookmarked = projectDatabase.daoAccess().fetchBookmarks();
 
                 for(int j = 0; j < alreadyBookmarked.size(); j++){
                     if(index.equals(alreadyBookmarked.get(j).getVerseIndex())){
@@ -93,7 +94,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
                         bookmark.setVerseIndex(index);
                         bookmark.setVerseArabic(verseStr);
                         bookmark.setVerseEnglish(transStr);
-                        bookmarksDatabase.daoAccess ().insertSingleBookmark (bookmark);
+                        projectDatabase.daoAccess ().insertSingleBookmark (bookmark);
                     }
                 }).start();
                 bookmarkedBtn.setVisibility(View.VISIBLE);
@@ -106,10 +107,10 @@ public class IndexSearchResultActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        List<Bookmarks> bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                        List<Bookmarks> bookmarksList = projectDatabase.daoAccess().fetchBookmarks();
                         for(int i = 0; i < bookmarksList.size(); i++) {
                             if(index.equals(bookmarksList.get(i).getVerseIndex())) {
-                                bookmarksDatabase.daoAccess().deleteBookmark(bookmarksList.get(i));
+                                projectDatabase.daoAccess().deleteBookmark(bookmarksList.get(i));
                             }
                         }
                     }
@@ -139,6 +140,7 @@ public class IndexSearchResultActivity extends AppCompatActivity {
                             }
                         });
                         isPlaying = true;
+                        stopBtn.setVisibility(View.VISIBLE);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -150,6 +152,15 @@ public class IndexSearchResultActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
                 isPlaying = false;
                 mp.reset();
+            }
+        });
+
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isPlaying = false;
+                mediaPlayer.reset();
+                stopBtn.setVisibility(View.GONE);
             }
         });
     }
