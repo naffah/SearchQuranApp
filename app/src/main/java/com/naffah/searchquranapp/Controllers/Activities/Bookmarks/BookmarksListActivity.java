@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.naffah.searchquranapp.Controllers.Adapters.BookmarksListAdaptor;
 import com.naffah.searchquranapp.Models.Bookmarks;
-import com.naffah.searchquranapp.Models.BookmarksDatabase;
+import com.naffah.searchquranapp.Models.ProjectDatabase;
 import com.naffah.searchquranapp.R;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import androidx.room.Room;
 public class BookmarksListActivity extends AppCompatActivity {
 
     private static final String DATABASE_NAME = "bookmarks_db";
-    private BookmarksDatabase bookmarksDatabase;
+    private ProjectDatabase projectDatabase;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -40,12 +40,12 @@ public class BookmarksListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        bookmarksDatabase = Room.databaseBuilder(getApplicationContext(), BookmarksDatabase.class, DATABASE_NAME).build();
+        projectDatabase = Room.databaseBuilder(getApplicationContext(), ProjectDatabase.class, DATABASE_NAME).build();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                bookmarksList = bookmarksDatabase.daoAccess().fetchBookmarks();
+                bookmarksList = projectDatabase.daoAccess().fetchBookmarks();
                 // specify an adapter (see also next example)
                 mAdapter = new BookmarksListAdaptor(getApplicationContext(), bookmarksList);
                 recyclerView.setAdapter(mAdapter);
@@ -56,6 +56,6 @@ public class BookmarksListActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bookmarksDatabase.close();
+        projectDatabase.close();
     }
 }
