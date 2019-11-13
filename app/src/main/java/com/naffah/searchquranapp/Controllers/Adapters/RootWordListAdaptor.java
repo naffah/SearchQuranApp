@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.naffah.searchquranapp.Controllers.Activities.WordSearch.ArabicSearchResultActivity;
+import com.naffah.searchquranapp.Controllers.Activities.WordSearch.RootSearchResultActivity;
 import com.naffah.searchquranapp.R;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class RootWordListAdaptor extends RecyclerView.Adapter<RootWordListAdapto
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context,rootList.get(i),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, ArabicSearchResultActivity.class);
+                Intent intent = new Intent(context, RootSearchResultActivity.class);
                 intent.putExtra("searchWord",rootList.get(i));
                 context.startActivity(intent);
             }
