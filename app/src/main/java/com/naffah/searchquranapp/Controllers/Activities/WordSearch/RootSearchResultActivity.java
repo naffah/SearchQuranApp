@@ -177,7 +177,7 @@ public class RootSearchResultActivity extends AppCompatActivity {
 
                             ayatIndex = myparser.getAttributeValue(null,"index");
                             if(flag1 && ayaIndex.size() > j && ayaIndex.get(j).equals(ayatIndex)){
-                                Log.i("Stefan",suraIndex.get(j) + ":" + ayaIndex.get(j));
+                                Log.i("Stefan",surahIndex + ":" + ayatIndex);
                                 flag2 = true;
                             }
 
@@ -189,7 +189,8 @@ public class RootSearchResultActivity extends AppCompatActivity {
 
                                 Log.i("Stefan",ayaList.get(j));
                                 j++;
-                                //flag1 = false;
+                                if(suraIndex.size() > j && !suraIndex.get(j).equals(suraIndex.get(j-1)))
+                                    flag1 = false;
                                 flag2 = false;
                             }
                         }
@@ -208,4 +209,3 @@ public class RootSearchResultActivity extends AppCompatActivity {
         }
     }
 }
-
