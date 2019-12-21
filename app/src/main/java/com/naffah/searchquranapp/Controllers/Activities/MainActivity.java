@@ -8,10 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.naffah.searchquranapp.Controllers.Activities.Bookmarks.BookmarksListActivity;
 import com.naffah.searchquranapp.Controllers.Activities.SuraList.SuraListScrollable;
@@ -19,29 +15,10 @@ import com.naffah.searchquranapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView bgapp, clover;
-    LinearLayout textsplash, texthome, menus;
-    Animation frombottom;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        frombottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
-
-        bgapp = findViewById(R.id.bgapp);
-        clover = findViewById(R.id.clover);
-        textsplash = findViewById(R.id.textsplash);
-        texthome = findViewById(R.id.texthome);
-        menus = findViewById(R.id.menus);
-
-        bgapp.animate().translationY(-1400).setDuration(800).setStartDelay(300);
-        clover.animate().alpha(0).setDuration(800).setStartDelay(600);
-        textsplash.animate().translationY(140).alpha(0).setDuration(800).setStartDelay(300);
-
-        texthome.startAnimation(frombottom);
-        menus.startAnimation(frombottom);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
