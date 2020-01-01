@@ -145,7 +145,7 @@ public class SearchByIndexActivity extends AppCompatActivity {
     private boolean validateVerse(){
         String placeholderText = spinner.getSelectedItem().toString();
         int spaceIndex = placeholderText.indexOf(" ");
-        Toast.makeText(this, "Space index: " + spaceIndex, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Space index: " + spaceIndex, Toast.LENGTH_LONG).show();
         String spinnerText = placeholderText.substring(spaceIndex + 1);
         int verseNum = Integer.parseInt(verseNo.getText().toString());
         SurahModel sura = new SurahModel();
