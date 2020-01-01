@@ -1,6 +1,5 @@
 package com.naffah.searchquranapp.Models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.room.Dao;
@@ -11,7 +10,7 @@ import androidx.room.Update;
 
 @Dao
 public interface DaoAccess {
-
+    //Methods for Bookmarks Table
     @Insert
     void insertSingleBookmark (Bookmarks bookmark);
     @Insert
@@ -26,4 +25,12 @@ public interface DaoAccess {
     void deleteBookmark (Bookmarks bookmark);
     @Query("DELETE FROM Bookmarks")
     void nukeTable();
+    
+    //Methods for UserProfiling Table
+    @Insert
+    void insertUserProfiling (UserProfiling userprofiling);
+    @Query("SELECT * FROM UserProfiling")
+    List<UserProfiling> fetchUserProfiling();
+    @Query("DELETE FROM UserProfiling WHERE id = :id")
+    void deleteByUserId(int id);
 }
