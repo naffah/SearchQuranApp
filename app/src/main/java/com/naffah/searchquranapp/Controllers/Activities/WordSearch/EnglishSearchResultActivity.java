@@ -36,6 +36,7 @@ public class EnglishSearchResultActivity extends AppCompatActivity  {
 
     String searchString = null;
     String searchString2 = null;
+    String wordForUserProfiling = "";
     TextView textView;
     SharedPreferences pref;
 
@@ -63,6 +64,18 @@ public class EnglishSearchResultActivity extends AppCompatActivity  {
         searchString2 = searchString;
         //Stem the word
         searchString = rootWordExtraction(searchString);
+        
+        //UserProfiling Logic Starts
+        int count = 0;
+        for(int i=0; i<searchString2.length(); i++){
+            if(searchString2.charAt(i) == ' ')
+                count++;
+        }
+
+        if(count == 0){
+            wordForUserProfiling = searchString2;
+        }
+        //UserProfiling Logic Ends
 
         //if word is a part of English dictionary or if it is a single word
         if(func(searchString)){
@@ -98,7 +111,7 @@ public class EnglishSearchResultActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ArabicSearchResultAdaptor(getApplicationContext(), ayaList, transList, suraIndex, ayaIndex);
+        mAdapter = new ArabicSearchResultAdaptor(getApplicationContext(), ayaList, transList, suraIndex, ayaIndex, wordForUserProfiling);
         recyclerView.setAdapter(mAdapter);
         setTitle("Search Results: " + mAdapter.getItemCount());
     }
