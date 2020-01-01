@@ -17,11 +17,13 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class SearchByArabicWordActivity extends AppCompatActivity {
 
     String searchString;
+    String hasDiacritics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,18 @@ public class SearchByArabicWordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchString = searchText.getText().toString();
+                String noDiacritics = Normalizer.normalize(searchString, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+
+                if (searchString.equals(noDiacritics)) {
+                    hasDiacritics = "no";
+                }
+                else if (!searchString.equals(noDiacritics)) {
+                    hasDiacritics = "yes";
+                }
 
                 Intent intent=new Intent(SearchByArabicWordActivity.this, ArabicSearchResultActivity.class);
                 intent.putExtra("searchWord",searchString);
+                intent.putExtra("hasDiacritics", hasDiacritics);
                 startActivity(intent);
             }
         });

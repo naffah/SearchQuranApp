@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "76234e8a00b8ed19d1efc5dd09897e51",
+    "identityHash": "7d73f760069062cd5f92791bc283f98e",
     "entities": [
       {
         "tableName": "Bookmarks",
@@ -41,12 +41,38 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "UserProfiling",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `word` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "word",
+            "columnName": "word",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '76234e8a00b8ed19d1efc5dd09897e51')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7d73f760069062cd5f92791bc283f98e')"
     ]
   }
 }

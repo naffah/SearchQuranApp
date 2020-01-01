@@ -36,6 +36,8 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
     TextView textView;
     SharedPreferences pref;
 
+    String hasDiacritics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
 
         Intent verse = getIntent();
         searchString = verse.getStringExtra("searchWord");
+        hasDiacritics = verse.getStringExtra("hasDiacritics");
 
         found = func(searchString);
 
@@ -78,6 +81,7 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
 
     public boolean func(String search){
         boolean returnValue = false;
+        InputStream in_s = null;
 
         XmlPullParserFactory xmlFactoryObject = null;
         try {
@@ -86,7 +90,13 @@ public class ArabicSearchResultActivity extends AppCompatActivity {
             XmlPullParser myparser2 = xmlFactoryObject.newPullParser();
             XmlPullParser myparser3 = xmlFactoryObject.newPullParser();
 
-            InputStream in_s = getApplicationContext().getAssets().open("database/quran-clean.xml");
+            if (hasDiacritics.equals("yes")) {
+                in_s = getApplicationContext().getAssets().open("database/quran-simple.xml");
+            }
+            else if (hasDiacritics.equals("no")) {
+                in_s = getApplicationContext().getAssets().open("database/quran-clean.xml");
+            }
+
             myparser.setInput(in_s, null);
             InputStream in_s2 = getApplicationContext().getAssets().open("database/quran-simple.xml");
             myparser2.setInput(in_s2, null);

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.naffah.searchquranapp.Models.SurahModel;
@@ -96,12 +99,33 @@ public class SearchByIndexActivity extends AppCompatActivity {
                         sura.setVerses(suraParser.getAttributeValue(null, "ayas"));
 
                         suraList.add(sura);
-                        list.add(sura.getSura());
+                        list.add(sura.getIndex() + "." + " " + sura.getSura());
 
-                        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                                android.R.layout.simple_spinner_item, list);
-                        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinner.setAdapter(dataAdapter);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.my_spinner_style, list) {
+
+                            public View getView(int position, View convertView, ViewGroup parent) {
+
+                                View v = super.getView(position, convertView, parent);
+
+                                ((TextView) v).setTextSize(24);
+
+                                return v;
+
+                            }
+
+                            public View getDropDownView(int position, View convertView,ViewGroup parent) {
+
+                                View v = super.getDropDownView(position, convertView, parent);
+
+                                ((TextView) v).setGravity(Gravity.RIGHT);
+                                ((TextView) v).setTextSize(24);
+
+                                return v;
+
+                            }
+
+                        };
+                        spinner.setAdapter(adapter);
                     }
                 }
                 else if(eventType == XmlPullParser.END_TAG) {
@@ -119,7 +143,10 @@ public class SearchByIndexActivity extends AppCompatActivity {
     }
 
     private boolean validateVerse(){
-        String spinnerText = spinner.getSelectedItem().toString();
+        String placeholderText = spinner.getSelectedItem().toString();
+        int spaceIndex = placeholderText.indexOf(" ");
+        Toast.makeText(this, "Space index: " + spaceIndex, Toast.LENGTH_LONG).show();
+        String spinnerText = placeholderText.substring(spaceIndex + 1);
         int verseNum = Integer.parseInt(verseNo.getText().toString());
         SurahModel sura = new SurahModel();
 
@@ -127,7 +154,15 @@ public class SearchByIndexActivity extends AppCompatActivity {
             sura = suraList.get(i);
             if (sura.getSura().equals(spinnerText)) {
                 int verses = Integer.parseInt(sura.getVerses());
-                if (verses >= verseNum) {
+                if (verseNum < 0) {
+                    Toast.makeText(getApplicationContext(), "Verse number cannot be negative.", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                else if (verseNum == 0) {
+                    Toast.makeText(getApplicationContext(), "Verse number cannot be zero.", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                else if (verses >= verseNum) {
                     searchVerseByNumber(sura.getSura(), verseNum, verses);
                     suraNo = sura.getIndex();
                     return true;
@@ -160,7 +195,6 @@ public class SearchByIndexActivity extends AppCompatActivity {
             suraParser.setInput(is, null);
             transParser.setInput(trans, null);
 
-            //TODO:Make proper functions man. Seriously. This one for sura verse search.
             int eventType = suraParser.getEventType();
 
             String index = null;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#3CAEA3"
-    android:padding="1dp">
+    android:paddingBottom="1dp">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/innerLayout"
@@ -24,9 +24,8 @@
             android:id="@+id/ayaTextArabic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:gravity="right"
             android:text="Arabic"
             android:textColor="@android:color/black"
@@ -39,7 +38,6 @@
             android:id="@+id/ayaTextEn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="left"
@@ -70,6 +68,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:background="#ffffff"
             android:src="@mipmap/remove_bookmark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

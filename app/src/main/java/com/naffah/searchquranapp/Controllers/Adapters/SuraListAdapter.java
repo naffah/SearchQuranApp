@@ -44,7 +44,7 @@ public class SuraListAdapter extends RecyclerView.Adapter<SuraListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
-        viewHolder.suraItemEn.setText(suraNum.get(i) + "." + suraNamesEn.get(i));
+        viewHolder.suraItemEn.setText(suraNum.get(i) + ". " + suraNamesEn.get(i));
         viewHolder.suraItemArabic.setText(suraNamesArabic.get(i));
 
         viewHolder.suraLayout.setOnClickListener(new View.OnClickListener() {

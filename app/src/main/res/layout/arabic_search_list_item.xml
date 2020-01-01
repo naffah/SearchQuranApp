@@ -19,14 +19,13 @@
             android:id="@+id/ayaTextArabic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:gravity="right"
             android:text="Arabic"
             android:textColor="@android:color/black"
+            android:textIsSelectable="true"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,14 +36,13 @@
             android:id="@+id/ayaTextEn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:gravity="left"
             android:text="English"
             android:textColor="#3CAEA3"
+            android:textIsSelectable="true"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +70,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/bookmark"
+            android:background="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,6 +82,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/bookmarked"
+            android:background="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,6 +94,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/play"
+            android:background="#ffffff"
             app:layout_constraintEnd_toStartOf="@+id/bookmarkVerseBtn"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,6 +107,7 @@
             android:layout_marginTop="8dp"
             android:src="@mipmap/stop"
             android:visibility="gone"
+            android:background="#ffffff"
             app:layout_constraintEnd_toStartOf="@+id/bookmarkVerseBtn"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
