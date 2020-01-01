@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -64,26 +63,16 @@ public class EnglishSearchResultActivity extends AppCompatActivity  {
         searchString2 = searchString;
         //Stem the word
         searchString = rootWordExtraction(searchString);
-        
-        //UserProfiling Logic Starts
-        int count = 0;
-        for(int i=0; i<searchString2.length(); i++){
-            if(searchString2.charAt(i) == ' ')
-                count++;
-        }
-
-        if(count == 0){
-            wordForUserProfiling = searchString2;
-        }
-        //UserProfiling Logic Ends
 
         //if word is a part of English dictionary or if it is a single word
         if(func(searchString)){
+            setWordForUserProfiling(searchString);
             initializeRecyclerView();
         }
         else{
             //if word is not part of Eng dictionary or is not single
             if(func(searchString2)){
+                setWordForUserProfiling(searchString2);
                 initializeRecyclerView();
             }
             else {
@@ -116,10 +105,21 @@ public class EnglishSearchResultActivity extends AppCompatActivity  {
         setTitle("Search Results: " + mAdapter.getItemCount());
     }
 
+    public void setWordForUserProfiling(String word){
+        int count = 0;
+        //counting number of spaces in string to determine number of words
+        for(int i=0; i<word.length(); i++){
+            if(word.charAt(i) == ' ')
+                count++;
+        }
+        if(count == 0){
+            wordForUserProfiling = word;
+        }
+    }
+
     public boolean func(String search){
 
         boolean returnValue = false;
-
         XmlPullParserFactory xmlFactoryObject = null;
         try {
             xmlFactoryObject = XmlPullParserFactory.newInstance();
