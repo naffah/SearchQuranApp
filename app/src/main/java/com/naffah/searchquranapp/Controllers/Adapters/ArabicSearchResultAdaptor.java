@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.naffah.searchquranapp.Models.Bookmarks;
 import com.naffah.searchquranapp.Models.ProjectDatabase;
+import com.naffah.searchquranapp.Models.UserProfiling;
 import com.naffah.searchquranapp.R;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     ArrayList<String> transList;
     ArrayList<String> suraIndex;
     ArrayList<String> ayaIndex;
+    String word; //for UserProfiling
 
     private static final String DATABASE_NAME = "bookmarks_db";
     private ProjectDatabase projectDatabase;
@@ -41,17 +43,33 @@ public class ArabicSearchResultAdaptor extends RecyclerView.Adapter<ArabicSearch
     Context context;
 
     public ArabicSearchResultAdaptor(Context context,ArrayList<String> ayaList, ArrayList<String> transList,
-                                     ArrayList<String> suraIndex, ArrayList<String> ayaIndex){
+                                     ArrayList<String> suraIndex, ArrayList<String> ayaIndex, final String word){
         this.ayaList = ayaList;
         this.transList = transList;
         this.suraIndex = suraIndex;
         this.ayaIndex = ayaIndex;
         this.context = context;
+        this.word = word;
 
         projectDatabase = Room.databaseBuilder(context, ProjectDatabase.class, DATABASE_NAME).build();
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //  UserProfiling logic
+                if(!word.isEmpty()) {
+                    List<UserProfiling> userProfilingList = projectDatabase.daoAccess().fetchUserProfiling();
+                    UserProfiling userProfiling = new UserProfiling();
+                    userProfiling.setWord(word);
+
+                    if (userProfilingList.size() < 5) {
+                        projectDatabase.daoAccess().insertUserProfiling(userProfiling);
+
+                    } else if (userProfilingList.size() >= 5) {
+                        projectDatabase.daoAccess().deleteByUserId(userProfilingList.get(0).getId());
+                        projectDatabase.daoAccess().insertUserProfiling(userProfiling);
+                    }
+                }
+                //User profile ends here
                 alreadyBookmarked = projectDatabase.daoAccess().fetchBookmarks();
             }
         }).start();
